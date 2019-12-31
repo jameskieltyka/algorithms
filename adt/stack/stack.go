@@ -2,17 +2,25 @@ package stack
 
 import "sync"
 
-//Stack implements a linkedlist FIFO queue
+//Stack implements LIFO queue
 type Stack struct {
 	mut  *sync.Mutex
-	data []interface{}
+	head *Data
+	size int
+}
+
+//Data provides a data node for the LL
+type Data struct {
+	Value interface{}
+	Next  *Data
 }
 
 //New creates a new stack with an initial capacity
-func New(size int) *Stack {
+func New() *Stack {
 	return &Stack{
 		&sync.Mutex{},
-		make([]interface{}, 0, size),
+		nil,
+		0,
 	}
 }
 
@@ -20,20 +28,29 @@ func New(size int) *Stack {
 func (s *Stack) Push(data interface{}) {
 	s.mut.Lock()
 	defer s.mut.Unlock()
-	s.data = append(s.data, data)
+	node := &Data{
+		Value: data,
+		Next:  s.head,
+	}
+	s.head = node
+	s.size++
 }
 
-// Pop returns the last item added tot the stack,
-// note the slice is not resized if too few items are added to the stack
-func (s *Stack) Pop(data interface{}) interface{} {
+// Pop returns the last item added to the stack,
+func (s *Stack) Pop() interface{} {
 	s.mut.Lock()
 	defer s.mut.Unlock()
-	lenStack := len(s.data)
-	if lenStack == 0 {
+	if s.head == nil {
 		return nil
 	}
 
-	item := s.data[lenStack-1]
-	s.data = s.data[:lenStack-1]
-	return item
+	item := s.head
+	s.head = s.head.Next
+	s.size--
+	return item.Value
+}
+
+//Len returns the size of the stack
+func (s *Stack) Len() int {
+	return s.size
 }
