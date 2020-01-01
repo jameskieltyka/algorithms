@@ -1,21 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func main() {
 	arr := []int{54, 25, 12, 22, 110}
-	mergeSort(arr, 0, len(arr))
+	mergeSort(arr)
 	fmt.Println(arr)
 }
 
-func mergeSort(arr []int, i, n int) {
-	if n <= i {
-		return
+func mergeSort(arr []int) {
+	n := len(arr)
+	for i := 1; i < n; i = i + i {
+		for lo := 0; lo < n-i; lo += i + i {
+			merge(arr, lo, lo+i, int(math.Min(float64(lo+i+i), float64(n))))
+		}
 	}
-	mid := (i + n) / 2
-	mergeSort(arr, i, mid)
-	mergeSort(arr, mid+1, n)
-	merge(arr, i, mid, n)
 }
 
 func merge(arr []int, low, mid, high int) {

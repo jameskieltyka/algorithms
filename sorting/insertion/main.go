@@ -11,11 +11,11 @@ func main() {
 func insertionSort(arr []int) {
 	for i := 1; i < len(arr); i++ {
 		if arr[i] < arr[i-1] {
-			j := 0
-			for arr[i] > arr[j] {
-				j++
+			j := i - 1
+			for j >= 0 && arr[i] < arr[j] {
+				j--
 			}
-			insert(arr, i, j)
+			insert(arr, i, j+1)
 		}
 	}
 }
