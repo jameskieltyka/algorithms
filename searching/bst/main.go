@@ -3,16 +3,14 @@ package main
 import "fmt"
 
 type BST struct {
-	root      *Node
-	NodeCount int
+	root *Node
 }
 
 type Node struct {
-	Key       string
-	Value     int
-	NodeCount int
-	Left      *Node
-	Right     *Node
+	Key   string
+	Value int
+	Left  *Node
+	Right *Node
 }
 
 func main() {
