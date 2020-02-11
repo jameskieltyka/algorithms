@@ -3,10 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	// fmt.Println(shortestPalindrome("aacecaaa"))
-	// fmt.Println(shortestPalindrome("aacdedcaa"))
-	// fmt.Println(shortestPalindrome("abcd"))
-	// fmt.Println(shortestPalindrome("cabcbds"))
+	fmt.Println(shortestPalindrome("aacecaaa"))
+	fmt.Println(shortestPalindrome("aacdedcaa"))
+	fmt.Println(shortestPalindrome("abcd"))
+	fmt.Println(shortestPalindrome("cabcbds"))
 	fmt.Println(shortestPalindrome("adcba"))
 }
 
